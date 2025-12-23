@@ -1,0 +1,9 @@
+{
+  "name": "yishou-tool",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0",
+    "@netlify/functions": "^4.2.0"
+  }
+}
