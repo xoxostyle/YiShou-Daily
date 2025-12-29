@@ -1,0 +1,31 @@
+name: 一手商品每日自動抓取
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. 檢出程式碼
+        uses: actions/checkout@v3
+
+      - name: 2. 設定 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: 3. 安裝套件
+        run: pip install pandas requests openpyxl xlrd
+
+      - name: 4. 執行抓取
+        run: python batch_fetch.py
+
+      - name: 5. 上傳結果
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: 一手抓取結果_${{ github.run_id }}
+          path: output_files/
