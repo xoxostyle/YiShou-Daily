@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 1. 檢出程式碼
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 2. 設定 Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: 3. 安裝套件
         run: pip install pandas requests openpyxl xlrd
@@ -25,7 +25,8 @@ jobs:
 
       - name: 5. 上傳結果
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: 一手抓取結果_${{ github.run_id }}
           path: output_files/
+          if-no-files-found: warn
